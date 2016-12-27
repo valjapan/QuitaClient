@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">QuitaClient</string>
+    <string name="title_activity_article_view">ArticleView</string>
+</resources>
