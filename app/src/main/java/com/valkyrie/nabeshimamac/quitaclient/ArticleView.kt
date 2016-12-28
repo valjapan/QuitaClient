@@ -2,7 +2,9 @@ package com.valkyrie.nabeshimamac.quitaclient
 
 import android.content.Context
 import android.graphics.Color
+import android.support.annotation.IdRes
 import android.util.AttributeSet
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,6 +29,10 @@ class ArticleView : FrameLayout {
 //    var titleTextView: TextView? = null
 //
 //    var userNameTextView: TextView? = null
+
+    fun <T : View> View.bindView(@IdRes id: Int): Lazy<T> = lazy {
+        findViewById(id) as T
+    }
 
     val profileImageView: ImageView by bindView(R.id.profile_image_view)
 
