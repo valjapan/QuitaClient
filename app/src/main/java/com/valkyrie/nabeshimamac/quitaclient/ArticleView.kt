@@ -1,13 +1,13 @@
 package com.valkyrie.nabeshimamac.quitaclient
 
 import android.content.Context
-import android.graphics.Color
 import android.support.annotation.IdRes
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 
 class ArticleView : FrameLayout {
     constructor(context: Context?) : super(context)
@@ -46,10 +46,10 @@ class ArticleView : FrameLayout {
 //    }
 
     fun setArticle(article: Article) {
-        titleTextView?.text = article.title
-        userNameTextView?.text = article.user.name
+        titleTextView.text = article.title
+        userNameTextView.text = article.user.name
 
-        profileImageView?.setBackgroundColor(Color.RED)
+        Glide.with(context).load(article.user.profileImageURI).into(profileImageView)
     }
 
 }

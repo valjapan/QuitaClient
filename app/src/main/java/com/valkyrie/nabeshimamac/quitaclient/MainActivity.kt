@@ -1,15 +1,18 @@
 package com.valkyrie.nabeshimamac.quitaclient
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.Toast
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
@@ -43,10 +46,21 @@ class MainActivity : AppCompatActivity() {
 
         val searchButton = findViewById(R.id.search_button) as Button
 
+        fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT){
+            Toast.makeText(this, message , duration).show()
+        }
+
         searchButton.setOnClickListener {
             articleClient.search(queryEditText.text.toString())
                     .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        queryEditText.text.clear()
+                        listAdapter.articles = it
+                        listAdapter.notifyDataSetChanged()
+                    },{
+                        toast("エラー: $it")
+                    })
         }
 
 
