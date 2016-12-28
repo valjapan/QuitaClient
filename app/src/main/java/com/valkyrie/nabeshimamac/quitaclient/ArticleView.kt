@@ -23,15 +23,13 @@ class ArticleView : FrameLayout {
                 attrs: AttributeSet?,
                 defStyleAttr: Int,
                 defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
-//
-//    var profileImageView: ImageView? = null
-//
-//    var titleTextView: TextView? = null
-//
-//    var userNameTextView: TextView? = null
+
+    init {
+        View.inflate(context, R.layout.content_article_view, this)
+    }
 
     fun <T : View> View.bindView(@IdRes id: Int): Lazy<T> = lazy {
-        findViewById(id) as T
+        (findViewById(id) as T)
     }
 
     val profileImageView: ImageView by bindView(R.id.profile_image_view)
@@ -47,7 +45,7 @@ class ArticleView : FrameLayout {
 //        userNameTextView = findViewById(R.id.user_name_text_view) as TextView
 //    }
 
-    fun setArticle(article: Article){
+    fun setArticle(article: Article) {
         titleTextView?.text = article.title
         userNameTextView?.text = article.user.name
 

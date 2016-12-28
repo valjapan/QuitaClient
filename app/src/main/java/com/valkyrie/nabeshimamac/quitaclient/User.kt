@@ -8,11 +8,12 @@ import android.os.Parcelable
  */
 
 data class User(val id: String,
-                val name: String,
-                val profileImageURI: String) : Parcelable {
+           val name: String,
+           val profileImageURI: String) : Parcelable {
+
     companion object {
         @JvmField
-        val CREATER: Parcelable.Creator<User> = object : Parcelable.Creator<User> {
+        val CREATOR: Parcelable.Creator<User> = object : Parcelable.Creator<User> {
             override fun createFromParcel(source: Parcel): User = source.run {
                 User(readString(), readString(), readString())
             }
