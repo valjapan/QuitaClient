@@ -9,6 +9,7 @@ import android.widget.ListView
 import android.widget.Toast
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
+import io.reyurnible.android.xmassplash.XmasSplashActivity
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        startActivity(XmasSplashActivity.createIntent(this))
         setContentView(R.layout.activity_main)
 
         val listAdapter = ArticleListAdapter(applicationContext)
