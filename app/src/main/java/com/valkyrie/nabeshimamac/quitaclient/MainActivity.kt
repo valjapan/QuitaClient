@@ -3,8 +3,8 @@ package com.valkyrie.nabeshimamac.quitaclient
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.Toast
 import com.google.gson.FieldNamingPolicy
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         val queryEditText = findViewById(R.id.query_edit_text) as EditText
 
-        val searchButton = findViewById(R.id.search_button) as Button
+        val searchButton = findViewById(R.id.search_button) as ImageButton
 
         fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
             Toast.makeText(this, message, duration).show()
