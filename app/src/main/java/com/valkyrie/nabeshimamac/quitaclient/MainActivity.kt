@@ -21,6 +21,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /*/*Intent(this, XmasSplashActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        }.let { startActivity(it) }*/Intent(this, XmasSplashActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        }.let { startActivity(it) }*/
         setContentView(R.layout.activity_main)
 
         val listAdapter = ArticleListAdapter(applicationContext)
