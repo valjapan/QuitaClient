@@ -9,6 +9,8 @@ import android.widget.ListView
 import android.widget.Toast
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -37,6 +39,9 @@ class MainActivity : AppCompatActivity() {
                 .create()
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://qiita.com")
+                .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }).build())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build()
@@ -46,8 +51,8 @@ class MainActivity : AppCompatActivity() {
 
         val searchButton = findViewById(R.id.search_button) as Button
 
-        fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT){
-            Toast.makeText(this, message , duration).show()
+        fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+            Toast.makeText(this, message, duration).show()
         }
 
         searchButton.setOnClickListener {
@@ -58,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                         queryEditText.text.clear()
                         listAdapter.articles = it
                         listAdapter.notifyDataSetChanged()
-                    },{
+                    }, {
                         toast("エラー: $it")
                     })
         }
@@ -70,6 +75,6 @@ class MainActivity : AppCompatActivity() {
             Article(id = "",
                     title = title,
                     url = "https://kotlinlang.org/",
-                    user = User(id = "", name = userName, profileImageURI = ""))
+                    user = User(id = "", name = userName, profileImageUrl = ""))
 
 }

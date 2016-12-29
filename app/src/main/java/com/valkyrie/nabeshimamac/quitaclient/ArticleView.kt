@@ -49,7 +49,7 @@ class ArticleView : FrameLayout {
         titleTextView.text = article.title
         userNameTextView.text = article.user.name
 
-        Glide.with(context).load(article.user.profileImageURI).into(profileImageView)
+        Glide.with(context).load(article.user.profileImageUrl).into(profileImageView)
     }
 
 }

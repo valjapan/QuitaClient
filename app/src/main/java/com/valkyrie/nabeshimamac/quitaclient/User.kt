@@ -9,7 +9,7 @@ import android.os.Parcelable
 
 data class User(val id: String,
            val name: String,
-           val profileImageURI: String) : Parcelable {
+           val profileImageUrl: String) : Parcelable {
 
     companion object {
         @JvmField
@@ -28,9 +28,9 @@ data class User(val id: String,
         dest.run {
             writeString(id)
             writeString(name)
-            writeString(profileImageURI)
+            writeString(profileImageUrl)
         }
     }
 
-    public inline fun <T, R> T.run(block: T.() -> R): R = block()
+    inline fun <T, R> T.run(block: T.() -> R): R = block()
 }

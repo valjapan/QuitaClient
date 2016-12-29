@@ -32,11 +32,19 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
+    // OKHttp
+    def okHttpVersion = '3.4.2'
+    compile "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
     def retrofitVersion = '2.0.2'
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     compile 'io.reactivex:rxandroid:1.2.1'
+    def rxlifecycleVersion = '0.6.1'
+    compile "com.trello:rxlifecycle-kotlin:$rxlifecycleVersion"
+    compile "com.trello:rxlifecycle-components:$rxlifecycleVersion"
+
     compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 repositories {
