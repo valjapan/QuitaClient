@@ -3,11 +3,12 @@ package com.valkyrie.nabeshimamac.quitaclient
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.ListView
 import android.widget.Toast
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
@@ -24,9 +25,8 @@ import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
-
     private var queryEditText: EditText by Delegates.notNull()
-    private var listAdapter: ArticleListAdapter by Delegates.notNull()
+    private var listAdapter: ArticleAdapter by Delegates.notNull()
     private var articleClient: ArticleClient by Delegates.notNull()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,20 +34,22 @@ class MainActivity : AppCompatActivity() {
         startActivity(XmasSplashActivity.createIntent(this))
         setContentView(R.layout.activity_main)
 
-        listAdapter = ArticleListAdapter(applicationContext).apply {
+        listAdapter = ArticleAdapter(applicationContext).apply {
             articles = listOf(dummyArticle("Kotlin入門", "たろう"), dummyArticle("Java入門", "じろう"))
+            listener = object : ArticleAdapter.OnItemClickListener {
+                override fun onItemClick(article: Article) {
+                    ArticleActivity.intent(this@MainActivity, article).let {
+                        startActivity(it)
+                    }
+                }
+            }
         }
-        val listView: ListView = findViewById(R.id.list_view) as ListView
+        val listView: RecyclerView = findViewById(R.id.list_view) as RecyclerView
         val searchButton = findViewById(R.id.search_button) as ImageButton
         queryEditText = findViewById(R.id.query_edit_text) as EditText
 
+        listView.layoutManager = LinearLayoutManager(this)
         listView.adapter = listAdapter
-        listView.setOnItemClickListener { adapterView, view, position, id ->
-            val article = listAdapter.articles[position]
-            ArticleActivity.intent(this, article).let {
-                startActivity(it)
-            }
-        }
 
         val gson = GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -76,7 +78,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun search(text: String) {
-        articleClient.search(text.toString())
+        articleClient.search(text)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
