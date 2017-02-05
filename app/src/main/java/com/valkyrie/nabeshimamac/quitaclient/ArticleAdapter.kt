@@ -18,7 +18,7 @@ class ArticleAdapter(private val context: Context, var articles: List<Article> =
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder?.let {
-            it.aritlceView?.setArticle(articles[position])
+            it.articleView?.setArticle(articles[position])
             it.itemView.setOnClickListener {
                 listener?.onItemClick(articles[position])
             }
@@ -26,7 +26,7 @@ class ArticleAdapter(private val context: Context, var articles: List<Article> =
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val aritlceView: ArticleView = view as ArticleView
+        val articleView: ArticleView = view as ArticleView
     }
 
     interface OnItemClickListener {
